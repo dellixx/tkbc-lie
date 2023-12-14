@@ -1,58 +1,3 @@
-### Mitigating Heterogeneity among Factor Tensor via Lie Group Manifolds for Temporal Knowledge Graph Embedding
-
-## Installation
-Create a conda environment with pytorch and scikit-learn :
-```
-conda create --name tkbc_env python=3.x
-source activate tkbc_env
-conda install --file requirements.txt -c pytorch
-```
-
-Then install the kbc package to this environment
-```
-python setup.py install
-```
-
-## Datasets
-
-To download the datasets, go to the tkbc/scripts folder and run:
-```
-chmod +x download_data.sh
-./download_data.sh
-```
-
-Once the datasets are downloaded, add them to the package data folder by running :
-```
-python tkbc/process.py
-```
-
-
-## Reproducing results
-
-
-
-```
-python tkbc/learner.py --dataset ICEWS14 --model TComplEx --rank 128 --emb_reg 1e-2 --time_reg 1e-2
-
-python tkbc/learner.py --dataset ICEWS05-15 --model TComplEx --rank 128 --emb_reg 1e-3 --time_reg 1
-```
-
-```
-python tkbc/learner.py --dataset ICEWS14 --model TNTComplEx --rank 128 --emb_reg 1e-2 --time_reg 1e-2
-
-python tkbc/learner.py --dataset ICEWS05-15 --model TNTComplEx --rank 128 --emb_reg 1e-3 --time_reg 1
-```
-
-
-
-
-## License
-tkbc is CC-BY-NC licensed, as found in the LICENSE file.
-
-
-## Our Method
-
-```
 import torch
 
 """
@@ -99,5 +44,3 @@ class MatrixOperationsLie:
 
         assert not torch.isnan(log_R_batch).any(), "log_R_batch contains nan values."
         return log_R_batch.contiguous().view(-1, self.mat_n * self.mat_n)
-
-```
