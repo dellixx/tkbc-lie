@@ -47,7 +47,7 @@ python tkbc/learner.py --dataset ICEWS05-15 --model TNTComplEx --rank 128 --emb_
 
 
 ## License
-tkbc is CC-BY-NC licensed, as found in the LICENSE file.
+MIT licensed, as found in the LICENSE file.
 
 
 ## Our Method
