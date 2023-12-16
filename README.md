@@ -1,4 +1,12 @@
-### Mitigating Heterogeneity among Factor Tensor via Lie Group Manifolds for Temporal Knowledge Graph Embedding
+<h2 align="center">
+Mitigating Heterogeneity among Factor Tensor via Lie Group Manifolds for Temporal Knowledge Graph Embedding
+</h2>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?e&logo=PyTorch&logoColor=white">
+</p>
+
+
 
 ## Installation
 Create a conda environment with pytorch and scikit-learn :
