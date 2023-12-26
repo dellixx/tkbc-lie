@@ -6,7 +6,7 @@ import torch
 from torch import nn
 import numpy as np
 
-from matrix_operations import MatrixOperations
+from matrix_operations_lie import MatrixOperationsLie
 
 class TKBCModel(nn.Module, ABC):
     @abstractmethod
@@ -41,7 +41,6 @@ class TKBCModel(nn.Module, ABC):
             while c_begin < self.sizes[2]:
                 b_begin = 0
                 rhs = self.get_rhs(c_begin, chunk_size)
-                # rhs = rhs+ self.mat_ops.map_to_lie(rhs)
                 while b_begin < len(queries):
                     if queries.shape[1]>4: #time intervals exist
                         these_queries = queries[b_begin:b_begin + batch_size]
@@ -145,7 +144,7 @@ class TComplEx(TKBCModel):
         self.sizes = sizes
         self.rank = rank
         self.mat_n = int(np.sqrt(rank*2))
-        self.mat_ops = MatrixOperations(mat_n=self.mat_n)
+        self.mat_ops = MatrixOperationsLie(mat_n=self.mat_n)
 
         self.embeddings = nn.ModuleList([
             nn.Embedding(s, 2 * rank, sparse=True)
@@ -169,11 +168,10 @@ class TComplEx(TKBCModel):
         rhs = self.embeddings[0](x[:, 2])
         time = self.embeddings[2](x[:, 3]) # b * 400
         
-        
-        lhs =lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)        
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)        
 
         lhs = lhs[:, :self.rank], lhs[:, self.rank:]
         rel = rel[:, :self.rank], rel[:, self.rank:]
@@ -194,11 +192,10 @@ class TComplEx(TKBCModel):
         rhs = self.embeddings[0](x[:, 2])
         time = self.embeddings[2](x[:, 3]) # b * 400
         
-        
-        lhs =lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)   
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)   
 
         lhs = lhs[:, :self.rank], lhs[:, self.rank:]
         rel = rel[:, :self.rank], rel[:, self.rank:]
@@ -231,9 +228,9 @@ class TComplEx(TKBCModel):
         time = self.embeddings[2](queries[:, 3])
         
         
-        lhs =lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        time =time- self.mat_ops.map_to_lie(time)   
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        time = time - self.mat_ops.map_to_lie(time)   
                 
         lhs = lhs[:, :self.rank], lhs[:, self.rank:]
         rel = rel[:, :self.rank], rel[:, self.rank:]
@@ -256,7 +253,7 @@ class TNTComplEx(TKBCModel):
         self.rank = rank
         
         self.mat_n = int(np.sqrt(rank*2))
-        self.mat_ops = MatrixOperations(mat_n=self.mat_n)
+        self.mat_ops = MatrixOperationsLie(mat_n=self.mat_n)
 
         self.embeddings = nn.ModuleList([
             nn.Embedding(s, 2 * rank, sparse=True)
@@ -281,11 +278,11 @@ class TNTComplEx(TKBCModel):
         rhs = self.embeddings[0](x[:, 2])
         time = self.embeddings[2](x[:, 3])
 
-        lhs =lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rel_no_time =rel_no_time- self.mat_ops.map_to_lie(rel_no_time)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rel_no_time = rel_no_time- self.mat_ops.map_to_lie(rel_no_time)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)
         
         lhs = lhs[:, :self.rank], lhs[:, self.rank:]
         rel = rel[:, :self.rank], rel[:, self.rank:]
@@ -309,11 +306,11 @@ class TNTComplEx(TKBCModel):
         rhs = self.embeddings[0](x[:, 2])
         time = self.embeddings[2](x[:, 3])
         
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rel_no_time =rel_no_time- self.mat_ops.map_to_lie(rel_no_time)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)       
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rel_no_time = rel_no_time- self.mat_ops.map_to_lie(rel_no_time)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)       
 
         lhs = lhs[:, :self.rank], lhs[:, self.rank:]
         rel = rel[:, :self.rank], rel[:, self.rank:]
@@ -354,10 +351,10 @@ class TNTComplEx(TKBCModel):
         rel_no_time = self.embeddings[3](queries[:, 1])
         time = self.embeddings[2](queries[:, 3])
         
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rel_no_time =rel_no_time- self.mat_ops.map_to_lie(rel_no_time)
-        time =time- self.mat_ops.map_to_lie(time)          
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rel_no_time = rel_no_time - self.mat_ops.map_to_lie(rel_no_time)
+        time = time - self.mat_ops.map_to_lie(time)          
 
         lhs = lhs[:, :self.rank], lhs[:, self.rank:]
         rel = rel[:, :self.rank], rel[:, self.rank:]
@@ -385,7 +382,7 @@ class TeLM(TKBCModel):
         self.W = nn.Embedding(4*rank,1,sparse=True)
         self.W.weight.data *= 0
         self.mat_n = int(np.sqrt(rank*2))
-        self.mat_ops = MatrixOperations(mat_n=self.mat_n)
+        self.mat_ops = MatrixOperationsLie(mat_n=self.mat_n)
         self.embeddings = nn.ModuleList([
             nn.Embedding(s, 4 * rank, sparse=True)
             for s in [sizes[0], sizes[1], sizes[3]] # without no_time_emb
@@ -415,10 +412,10 @@ class TeLM(TKBCModel):
         time = self.embeddings[2](x[:, 3] // self.time_granularity) 
         
         
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)  
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)  
         
         lhs = lhs[:, :self.rank], lhs[:, self.rank:self.rank*2], lhs[:, self.rank*2:self.rank*3], lhs[:, self.rank*3:]
         rel = rel[:, :self.rank], rel[:, self.rank:self.rank*2], rel[:, self.rank*2:self.rank*3], rel[:, self.rank*3:]
@@ -449,10 +446,10 @@ class TeLM(TKBCModel):
         time = self.embeddings[2](x[:, 3] // self.time_granularity)
         
         
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)          
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)          
 
         lhs = lhs[:, :self.rank], lhs[:, self.rank*3:]
         rel = rel[:, :self.rank], rel[:, self.rank*3:]
@@ -483,10 +480,10 @@ class TeLM(TKBCModel):
         rhs = self.embeddings[0](x[:, 2])
         time = self.embeddings[2](x[:, 3] // self.time_granularity) 
         
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)          
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)          
 
         lhs = lhs[:, :self.rank], lhs[:, self.rank:self.rank*2], lhs[:, self.rank*2:self.rank*3], lhs[:, self.rank*3:]
         rel = rel[:, :self.rank], rel[:, self.rank:self.rank*2], rel[:, self.rank*2:self.rank*3], rel[:, self.rank*3:]
@@ -537,9 +534,9 @@ class TeLM(TKBCModel):
         rel = self.embeddings[1](queries[:, 1])
         time = self.embeddings[2](queries[:, 3] // self.time_granularity) 
         
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        time =time- self.mat_ops.map_to_lie(time)          
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        time = time - self.mat_ops.map_to_lie(time)          
         
         lhs = lhs[:, :self.rank], lhs[:, self.rank:self.rank*2], lhs[:, self.rank*2:self.rank*3], lhs[:, self.rank*3:]
         rel = rel[:, :self.rank], rel[:, self.rank:self.rank*2], rel[:, self.rank*2:self.rank*3], rel[:, self.rank*3:]
@@ -570,7 +567,7 @@ class TeAST(TKBCModel):
         self.W = nn.Embedding(2*rank, 1, sparse=True)
         self.W.weight.data *= 0
         self.mat_n = int(np.sqrt(rank*2))
-        self.mat_ops = MatrixOperations(mat_n=self.mat_n)
+        self.mat_ops = MatrixOperationsLie(mat_n=self.mat_n)
 
         self.embeddings = nn.ModuleList([
             nn.Embedding(s, 2 * rank, sparse=True)
@@ -596,11 +593,11 @@ class TeAST(TKBCModel):
         time = self.embeddings[2](x[:, 3])
         time_phase = self.embeddings[3](x[:, 3])
         
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)  
-        time_phase =time_phase- self.mat_ops.map_to_lie(time_phase)  
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)  
+        time_phase = time_phase - self.mat_ops.map_to_lie(time_phase)  
         
 
         time_phase = torch.abs(time_phase)
@@ -626,11 +623,11 @@ class TeAST(TKBCModel):
         time = self.embeddings[2](x[:, 3])
         time_phase = self.embeddings[3](x[:, 3])
 
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        rhs =rhs- self.mat_ops.map_to_lie(rhs)
-        time =time- self.mat_ops.map_to_lie(time)  
-        time_phase =time_phase- self.mat_ops.map_to_lie(time_phase)  
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        rhs = rhs - self.mat_ops.map_to_lie(rhs)
+        time = time - self.mat_ops.map_to_lie(time)  
+        time_phase = time_phase - self.mat_ops.map_to_lie(time_phase)  
         
         time_phase = torch.abs(time_phase)
         time_phase = torch.sin(time_phase[:, :self.rank]), torch.sin(time_phase[:, self.rank:])
@@ -666,10 +663,10 @@ class TeAST(TKBCModel):
         time = self.embeddings[2](queries[:, 3])
         time_phase = self.embeddings[3](queries[:, 3])
 
-        lhs = lhs- self.mat_ops.map_to_lie(lhs)
-        rel = rel- self.mat_ops.map_to_lie(rel)
-        time =time- self.mat_ops.map_to_lie(time)  
-        time_phase =time_phase- self.mat_ops.map_to_lie(time_phase)  
+        lhs = lhs - self.mat_ops.map_to_lie(lhs)
+        rel = rel - self.mat_ops.map_to_lie(rel)
+        time = time - self.mat_ops.map_to_lie(time)  
+        time_phase = time_phase - self.mat_ops.map_to_lie(time_phase)  
         
         time_phase = torch.abs(time_phase)        
         time_phase = torch.sin(time_phase[:, :self.rank]), torch.sin(time_phase[:, self.rank:])

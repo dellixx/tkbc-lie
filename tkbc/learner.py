@@ -14,13 +14,12 @@ import random
 
 
 parser = argparse.ArgumentParser(
-    description="TeLM"
+    description="tkbc-lie"
 )
 parser.add_argument(
     '--dataset', type=str, default='ICEWS14',
     help="Dataset name"
 )
-
 parser.add_argument(
     '--model', default='TNTComplEx', type=str,
     help="Model Name"

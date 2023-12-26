@@ -61,6 +61,8 @@ MIT licensed, as found in the LICENSE file.
 ## Our Method
 
 ```
+# Copyright (c) Mitigating Heterogeneity among Factor Tensor via Lie Group Manifolds for Temporal Knowledge Graph Embedding
+
 import torch
 
 """
