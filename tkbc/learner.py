@@ -153,7 +153,7 @@ def learn(model=args.model,
             batch_size=batch_size
         )
         if epoch >= epoch_pretrain:
-            optimizer.epoch(examples,pre_train=False)
+            optimizer.epoch(examples)
         else:
             optimizer_pretrain.epoch(examples,pre_train=True)
 
