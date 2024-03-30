@@ -40,16 +40,12 @@ python tkbc/process.py
 
 
 ```
-python tkbc/learner.py --dataset ICEWS14 --model TComplEx --rank 128 --emb_reg 1e-2 --time_reg 1e-2
+python tkbc/learner.py --dataset ICEWS14 --model TComplEx (TNTcomplEx, TeLM, TeAST) --rank 128 --emb_reg 1e-2 --time_reg 1e-2
 
-python tkbc/learner.py --dataset ICEWS05-15 --model TComplEx --rank 128 --emb_reg 1e-3 --time_reg 1
+python tkbc/learner.py --dataset ICEWS05-15 --model TComplEx  (TNTcomplEx, TeLM, TeAST) --rank 128 --emb_reg 1e-3 --time_reg 1
+
 ```
 
-```
-python tkbc/learner.py --dataset ICEWS14 --model TNTComplEx --rank 128 --emb_reg 1e-2 --time_reg 1e-2
-
-python tkbc/learner.py --dataset ICEWS05-15 --model TNTComplEx --rank 128 --emb_reg 1e-3 --time_reg 1
-```
 
 
 
