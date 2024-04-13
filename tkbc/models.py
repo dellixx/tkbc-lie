@@ -85,8 +85,8 @@ class TKBCModel(nn.Module, ABC):
                         scores = q_s @ rhs + q_e @ rhs
                         targets = self.score(start_queries)+self.score(end_queries)
                     else:
-                        these_queries = queries[b_begin:b_begin + batch_size] # 500, 4
-                        q = self.get_queries(these_queries) # 500, 400
+                        these_queries = queries[b_begin:b_begin + batch_size]
+                        q = self.get_queries(these_queries)
                         """
                         if use_left_queries:
                             lhs_queries = torch.ones(these_queries.size()).long().cuda()
@@ -100,7 +100,7 @@ class TKBCModel(nn.Module, ABC):
                             targets = self.score(these_queries) + self.score(lhs_queries)
                         """
                         
-                        scores = q @ rhs # 500, 400 x 400, 7128
+                        scores = q @ rhs
                         targets = self.score(these_queries)
 
                     assert not torch.any(torch.isinf(scores)), "inf scores"
@@ -166,7 +166,7 @@ class TComplEx(TKBCModel):
         lhs = self.embeddings[0](x[:, 0])
         rel = self.embeddings[1](x[:, 1])
         rhs = self.embeddings[0](x[:, 2])
-        time = self.embeddings[2](x[:, 3]) # b * 400
+        time = self.embeddings[2](x[:, 3])
         
         lhs = lhs - self.mat_ops.map_to_lie(lhs)
         rel = rel - self.mat_ops.map_to_lie(rel)
