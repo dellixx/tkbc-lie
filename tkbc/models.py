@@ -167,7 +167,15 @@ class TComplEx(TKBCModel):
         rel = self.embeddings[1](x[:, 1])
         rhs = self.embeddings[0](x[:, 2])
         time = self.embeddings[2](x[:, 3])
-        
+
+	"""
+	Following previous work (TComplEx, TNTComplEx, TeLM, TeAST),  we utilize reciprocal learning in the training process, 
+	which calculates both the scores of $(s, r, ?, t)$ and $(o, r^{−1}, ?, t)$.  
+	Here,  $s$ is the subject entity, $r$ is the relation, $o$ is the object entity and $t$ is the timestamp. 
+	This means that we need to mitigate the heterogeneity between these three elements by focusing only on optimizing 
+	the `lhs`$(s\&o)$ side entities, relations, and timestamps, and mapping them into the Lie group space.
+	"""
+	    
         lhs = lhs - self.mat_ops.map_to_lie(lhs)
         rel = rel - self.mat_ops.map_to_lie(rel)
         time = time - self.mat_ops.map_to_lie(time)        
@@ -189,7 +197,7 @@ class TComplEx(TKBCModel):
         lhs = self.embeddings[0](x[:, 0])
         rel = self.embeddings[1](x[:, 1])
         rhs = self.embeddings[0](x[:, 2])
-        time = self.embeddings[2](x[:, 3]) # b * 400
+        time = self.embeddings[2](x[:, 3])
         
         lhs = lhs - self.mat_ops.map_to_lie(lhs)
         rel = rel - self.mat_ops.map_to_lie(rel)
