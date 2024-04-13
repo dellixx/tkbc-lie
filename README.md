@@ -4,6 +4,7 @@ Mitigating Heterogeneity among Factor Tensors via Lie Group Manifolds for Tensor
 
 <p align="center">
   <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?e&logo=PyTorch&logoColor=white">
+  <img alt="Static Badge" src="https://img.shields.io/badge/License-MIT-blue">
 </p>
 
 
