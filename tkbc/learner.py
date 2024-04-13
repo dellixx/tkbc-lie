@@ -5,8 +5,8 @@ from torch import optim
 
 from datasets import TemporalDataset
 from optimizers import TKBCOptimizer
-from models import TComplEx, TNTComplEx
-from regularizers import N3, Lambda3
+from models import TeAST
+from regularizers import N3, Spiral3
 import os
 
 import numpy as np 
@@ -105,8 +105,7 @@ def learn(model=args.model,
     
     sizes = dataset.get_shape()
     model = {
-        'TComplEx': TComplEx(sizes, rank, no_time_emb=args.no_time_emb),
-        'TNTComplEx': TNTComplEx(sizes, rank, no_time_emb=args.no_time_emb),
+        'TeAST': TeAST(sizes, rank, no_time_emb=args.no_time_emb)
     }[model]
     model = model.cuda()
 
@@ -122,7 +121,7 @@ def learn(model=args.model,
     print("Start training process: ", modelname, "on", datasetname, "using", "rank =", rank, "lr =", learning_rate, "emb_reg =", emb_reg, "time_reg =", time_reg, "time_granularity =", time_granularity)
 
     emb_reg = N3(emb_reg)
-    time_reg = Lambda3(time_reg)
+    time_reg = Spiral3(time_reg)
 
     # Results related
     try:
