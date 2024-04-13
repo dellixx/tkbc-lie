@@ -1,5 +1,5 @@
 <h2 align="center">
-Mitigating Heterogeneity among Factor Tensor via Lie Group Manifolds for Temporal Knowledge Graph Embedding
+Mitigating Heterogeneity among Factor Tensors via Lie Group Manifolds for Tensor Decomposition Based Temporal Knowledge Graph Embedding
 </h2>
 
 <p align="center">
@@ -56,12 +56,11 @@ MIT licensed, as found in the LICENSE file.
 ## Our Method
 
 ```
-# Copyright (c) Mitigating Heterogeneity among Factor Tensor via Lie Group Manifolds for Temporal Knowledge Graph Embedding
-
+# Copyright (c) Mitigating Heterogeneity among Factor Tensors via Lie Group Manifolds for Tensor Decomposition Based Temporal Knowledge Graph Embedding
 import torch
 
 """
-Mitigating Heterogeneity among Factor Tensor via Lie Group Manifolds for Temporal Knowledge Graph Embedding
+Mitigating Heterogeneity among Factor Tensors via Lie Group Manifolds for Tensor Decomposition Based Temporal Knowledge Graph Embedding
 
 """
 class MatrixOperationsLie:
