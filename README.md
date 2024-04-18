@@ -58,12 +58,9 @@ MIT licensed, as found in the LICENSE file.
 
 ```
 # Copyright (c) Mitigating Heterogeneity among Factor Tensors via Lie Group Manifolds for Tensor Decomposition Based Temporal Knowledge Graph Embedding
+
 import torch
 
-"""
-Mitigating Heterogeneity among Factor Tensors via Lie Group Manifolds for Tensor Decomposition Based Temporal Knowledge Graph Embedding
-
-"""
 class MatrixOperationsLie:
     def __init__(self, mat_n):
         """
