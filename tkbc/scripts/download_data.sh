@@ -1,1 +1,0 @@
-# Refer to the following link https://github.com/facebookresearch/kbc

@@ -24,26 +24,33 @@ python setup.py install
 
 ## Datasets
 
-To download the datasets, go to the tkbc/scripts folder and run:
-```
-chmod +x download_data.sh
-./download_data.sh
-```
+**We provide the downloaded data at `tkbc/src_data`**
 
-Once the datasets are downloaded, add them to the package data folder by running :
+Once the datasets are [downloaded](https://github.com/facebookresearch/tkbc/blob/main/tkbc/scripts/download_data.sh), go to the tkbc/ folder and add them to the package data folder by running :
+
+
+
 ```
 python tkbc/process.py
 ```
-
+This will create the files required to compute the filtered metrics.
 
 ## Reproducing results
 
 
 
 ```
-python tkbc/learner.py --dataset ICEWS14 --model TeAST (TComplEx & TNTcomplEx & TeLM(rank=121)) --rank 128 --emb_reg 1e-2 --time_reg 1e-2
+# ICEWS14
+python tkbc/learner.py --dataset ICEWS14 --model TeAST --rank 128 --emb_reg 1e-2 --time_reg 1e-2
+python tkbc/learner.py --dataset ICEWS14 --model TComplEx  --rank 128 --emb_reg 1e-2 --time_reg 1e-2
+python tkbc/learner.py --dataset ICEWS14 --model TNTcomplEx  --rank 128 --emb_reg 1e-2 --time_reg 1e-2
+python tkbc/learner.py --dataset ICEWS14 --model TeLM --rank 121 --emb_reg 1e-2 --time_reg 1e-2
 
-python tkbc/learner.py --dataset ICEWS05-15 --model TeAST (TComplEx & TNTcomplEx & TeLM(rank=121)) --rank 128 --emb_reg 1e-3 --time_reg 1
+# ICEWS05-15
+python tkbc/learner.py --dataset ICEWS05-15 --model TeAST --rank 128 --emb_reg 1e-3 --time_reg 1
+python tkbc/learner.py --dataset ICEWS05-15 --model TComplEx --rank 128 --emb_reg 1e-3 --time_reg 1
+python tkbc/learner.py --dataset ICEWS05-15 --model TNTcomplEx --rank 128 --emb_reg 1e-3 --time_reg 1
+python tkbc/learner.py --dataset ICEWS05-15 --model TeLM --rank 121 --emb_reg 1e-3 --time_reg 1
 ```
 
 
