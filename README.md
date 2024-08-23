@@ -61,6 +61,9 @@ python tkbc/learner.py --dataset ICEWS05-15 --model TeLM --rank 121 --emb_reg 1e
 MIT licensed, as found in the LICENSE file.
 
 
+### Acknowledgement
+We refer to the code of [TNTComplEx](https://github.com/facebookresearch/tkbc) and [TeLM](https://github.com/soledad921/TeLM). Thanks for their great contributions!
+
 ## Our Method
 
 ```
