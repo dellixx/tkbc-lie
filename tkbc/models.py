@@ -135,12 +135,7 @@ class TKBCModel(nn.Module, ABC):
         return ranks
 
 
-"""
-Following previous work (TComplEx, TNTComplEx, TeLM, TeAST),  we utilize reciprocal learning in the training process, 
-which calculates both the scores of $(s, r, ?, t)$ and $(o, r^{−1}, ?, t)$.Here,  $s$ is the subject entity, $r$ is the relation, 
-$o$ is the object entity and $t$ is the timestamp. This means that we need to mitigate the heterogeneity between these three 
-elements by focusing only on optimizing the `lhs`$(s\&o)$ side entities, relations, and timestamps, and mapping them into the Lie group space.
-"""
+
 
 class TComplEx(TKBCModel):
     def __init__(
